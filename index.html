@@ -83,6 +83,7 @@
                         return $.ajax(getAjaxParameters(url, yesterdayUrl));
                         });
                         chained.done(function(data) {
+                            var type;
                             currencyYesterday = parseFloat(data.query.results.td.p);
                             var sum = (currencyYesterday - currencyToday);
                             if (sum < 0) {
