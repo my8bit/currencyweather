@@ -99,7 +99,7 @@
                             setCase("ы на сегодня");
                             $("#value").html("<a href='" + todayUrl + "'>" + sum + "</a>");
                         } else {
-                            sum = (sum == 0) ? "незначительно";
+                            if (sum == 0) sum = "незначительно";
                             setCase("а");
                             $("#value").text(sum);
                         }
