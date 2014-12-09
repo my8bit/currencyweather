@@ -84,22 +84,30 @@
                         });
                         chained.done(function(data) {
                             currencyYesterday = parseFloat(data.query.results.td.p);
-                            var sum = ((currencyYesterday - currencyToday) / 100).toFixed(2),
-                            type = (sum < 0) ? "Холодает, ": "Теплеет, ";
-                        if ((currencyYesterday - currencyToday) === 0) {
-                            type = "Гидрометцентр все ещё не предоставил данные ";
+                            var sum = (currencyYesterday - currencyToday);
+                            if (sum < 0) {
+                                type = "Холодает, ";
+                                sum = (sum / 100).toFixed(2);
+                            } else if (sum > 0) {
+                                type = "Теплеет, ";
+                                sum = (sum / 100).toFixed(2);
+                            } else {
+                                type = "Гидрометцентр все ещё не предоставил данные ";
+                                sum = "убедитесь";
+                            }
+                        if (typeof sum == "string") {
                             setCase("ы на сегодня");
-                            sum = "убедитесь";
                             $("#value").html("<a href='" + todayUrl + "'>" + sum + "</a>");
                         } else {
+                            sum = (sum == 0) ? "незначительно";
                             setCase("а");
                             $("#value").text(sum);
                         }
                         $("#type").text(type);
                         $("#yesterdayLink").attr("href", yesterdayUrl);
                         $("#todayLink").attr("href", todayUrl);
-                        });
                     });
+                });
             </script>
         </head>
         <body>
@@ -115,6 +123,6 @@
                     </p>
                 </div>
             </div>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4d6f9ef75809dd61"></script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4d6f9ef75809dd61" async="async"></script>
         </body>
     </html>
